@@ -11,20 +11,42 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		D59C76B12DD091A00067E656 /* Exceptions for "money" folder in "money" target */ = {
+		D5498F3D2DD43590009CC524 /* Exceptions for "money" folder in "money" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				General/Interpolation.swift,
+				General/TaskSeconds.swift,
+				Models/Account.swift,
+				Models/TransactionCategory.swift,
+				Models/TransactionRecord.swift,
+				moneyApp.swift,
+				Utilities/Formatter.swift,
+				Utilities/LocationManager.swift,
+				Views/AccountDetailView.swift,
+				Views/AccountsView.swift,
+				Views/AddAccountView.swift,
+				Views/AddEditCategoryView.swift,
+				Views/AddTransactionView.swift,
+				Views/CategoriesView.swift,
+				Views/MainTabView.swift,
+				Views/RecordTimelineView.swift,
+				Views/SettingsView.swift,
+				Views/StatisticView.swift,
+				Views/StickyMapHeaderView.swift,
+				Views/SubcategoriesView.swift,
+				Views/TransactionRecord/DetailedMapView.swift,
+				Views/TransactionRecord/ParkingSpotShowcaseView.swift,
+				Views/TransactionRecord/TransactionDetailView.swift,
 			);
 			target = D59C76A02DD0919E0067E656 /* money */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		D59C76A32DD0919E0067E656 /* money */ = {
+		D5498F0B2DD43586009CC524 /* money */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				D59C76B12DD091A00067E656 /* Exceptions for "money" folder in "money" target */,
+				D5498F3D2DD43590009CC524 /* Exceptions for "money" folder in "money" target */,
 			);
 			path = money;
 			sourceTree = "<group>";
@@ -45,8 +67,8 @@
 		D59C76982DD0919E0067E656 = {
 			isa = PBXGroup;
 			children = (
-				D59C76A32DD0919E0067E656 /* money */,
 				D59C76A22DD0919E0067E656 /* Products */,
+				D5498F0B2DD43586009CC524 /* money */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,9 +94,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				D59C76A32DD0919E0067E656 /* money */,
 			);
 			name = money;
 			packageProductDependencies = (
