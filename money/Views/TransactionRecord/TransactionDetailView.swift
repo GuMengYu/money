@@ -13,6 +13,14 @@ enum RecordStatus: String, Codable, CaseIterable {
       return .red
     }
   }
+    var icon: Image {
+        switch self {
+        case .completed:
+            return Image(systemName: "checkmark.circle.fill")
+        case .retired:
+            return Image(systemName: "arrowshape.turn.up.backward.circle.fill")
+        }
+    }
 }
 struct TransactionDetailView: View {
   // Using @Bindable if we want to allow editing directly from the detail view in the future.
@@ -45,7 +53,7 @@ struct TransactionDetailView: View {
           ZStack {
             Text("Beautiful Map Goes Here")
               .hidden()
-              .frame(height: 260)
+              .frame(height: 300)
               .frame(maxWidth: .infinity)
           }
           .background(alignment: .bottom) {
@@ -66,7 +74,7 @@ struct TransactionDetailView: View {
                     endPoint: .bottom
                   )
                 }
-                .padding(.top, -40)
+                .padding(.top, -100)
               #endif
           }
           .overlay(alignment: .bottomTrailing) {
@@ -81,7 +89,7 @@ struct TransactionDetailView: View {
           }
         }
         VStack(alignment: .leading, spacing: 8) {
-          Text(transaction.category?.name ?? "").font(.title)
+            Text(transaction.category?.name ?? "").font(.largeTitle)
             .fontWeight(.semibold)
           HStack {
             VStack(alignment: .leading) {
@@ -104,13 +112,13 @@ struct TransactionDetailView: View {
                 }
               }
             } label: {
-              HStack(spacing: 2) {
-                Image(systemName: "checkmark.seal.fill")
+              HStack(spacing: 4) {
+                  status.icon
                   .resizable()
                   .scaledToFit()
-                  .frame(width: 12)
+                  .frame(width: 16)
                 Text(status.rawValue)
-                  .font(.footnote)
+                      .font(.subheadline)
                   .fontWeight(.semibold)
               }
               .foregroundStyle(status.color)
@@ -133,7 +141,26 @@ struct TransactionDetailView: View {
             Budge(
               title: transaction.date.formatted(date: .omitted, time: .shortened),
               icon: Image(systemName: "clock.fill"), color: .teal)
+            Budge(
+                title: "CNY",
+                icon: Image(systemName: "chineseyuanrenminbisign.circle.fill"), color: .red)
           }
+          .padding(.vertical)
+            Divider()
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("金额")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Text(transaction.amount, format: .currency(code: "CNY"))
+                        .font(.title)
+                        .fontDesign(.rounded)
+                                 .foregroundColor(
+                                   transaction.transactionType == .income
+                                     ? .green : (transaction.transactionType == .expense ? .red : .primary))
+                }
+            }
+            
 
 //          LabeledContent("类型", value: transaction.transactionType.rawValue)
 //          LabeledContent("金额") {
@@ -270,7 +297,7 @@ struct Budge: View {
   var icon: Image
   var color: Color
   var body: some View {
-    HStack(spacing: 2) {
+    HStack(spacing: 3) {
       icon
         .resizable()
         .scaledToFit()

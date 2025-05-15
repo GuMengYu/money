@@ -75,18 +75,6 @@ struct RecordTimelineView: View {
                         .contentShape(Rectangle())
 
                     }
-                    //                    TransactionRow(transaction: transaction)
-                    //                      .contentShape(Rectangle())  // Make the whole row tappable
-                    //                      .onTapGesture {
-                    //                        selectedTransaction = transaction
-                    //                      }
-                    //                      .swipeActions(edge: .trailing) {
-                    //                        Button(role: .destructive) {
-                    //                          deleteTransaction(transaction)
-                    //                        } label: {
-                    //                          Label("删除", systemImage: "trash")
-                    //                        }
-                    //                      }
                   }
                 } header: {
                   DailySummaryHeader(date: date, transactions: dailyTransactions)

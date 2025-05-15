@@ -58,6 +58,19 @@ struct DetailedMapView: ViewControllerRepresentable {
       mapView.isScrollEnabled = false
       mapView.isRotateEnabled = false
       mapView.showsCompass = false
+
+      // 创建标记点
+      let annotation = MKPointAnnotation()
+      mapView.addAnnotation(annotation)
+      currentAnnotation = annotation
+
+      // 自定义标记点外观
+      #if os(iOS)
+        mapView.register(
+          MKMarkerAnnotationView.self,
+          forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier
+        )
+      #endif
     }
   }
 
@@ -92,28 +105,11 @@ struct DetailedMapView: ViewControllerRepresentable {
       heading: heading
     )
 
-    // 移除现有标记点（如果存在）
-    if let existingAnnotation = controller.currentAnnotation {
-      controller.mapView.removeAnnotation(existingAnnotation)
-      controller.currentAnnotation = nil
+    // 更新标记点位置和标题
+    if let annotation = controller.currentAnnotation {
+      annotation.coordinate = location.coordinate
+      annotation.title = title
     }
-
-    // 创建新的标记点
-    let annotation = MKPointAnnotation()
-    annotation.coordinate = location.coordinate
-    annotation.title = title
-
-    // 添加标记点到地图
-    controller.mapView.addAnnotation(annotation)
-    controller.currentAnnotation = annotation
-
-    // 自定义标记点外观
-    #if os(iOS)
-      controller.mapView.register(
-        MKMarkerAnnotationView.self,
-        forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier
-      )
-    #endif
   }
 }
 
