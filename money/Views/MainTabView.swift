@@ -31,7 +31,6 @@ struct MainTabView: View {
   @State private var toolbarBackgroundVisibility: Visibility = .automatic
 
   var body: some View {
-    NavigationStack {
       VStack(spacing: 0) {
         TabView(selection: $activeTab) {
             RecordTimelineView()
@@ -52,7 +51,6 @@ struct MainTabView: View {
         }
         CustomTabBar()
       }
-    }
   }
 
   @ViewBuilder

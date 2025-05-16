@@ -10,6 +10,7 @@ import SwiftUI
 
 @main
 struct moneyApp: App {
+  @StateObject private var hapticManager = HapticManager()
   var sharedModelContainer: ModelContainer = {
     let schema = Schema([
       Account.self,
@@ -29,6 +30,7 @@ struct moneyApp: App {
     WindowGroup {
       MainTabView()
     }
+    .environmentObject(hapticManager)
     .modelContainer(sharedModelContainer)
   }
 }

@@ -20,7 +20,9 @@
 				Models/TransactionCategory.swift,
 				Models/TransactionRecord.swift,
 				moneyApp.swift,
+				"Preview Content/TransactionSamples.swift",
 				Utilities/Formatter.swift,
+				Utilities/HapticManager.swift,
 				Utilities/LocationManager.swift,
 				Views/AccountDetailView.swift,
 				Views/AccountsView.swift,
@@ -28,6 +30,7 @@
 				Views/AddEditCategoryView.swift,
 				Views/AddTransactionView.swift,
 				Views/CategoriesView.swift,
+				Views/CustomWeekCalendar.swift,
 				Views/MainTabView.swift,
 				Views/RecordTimelineView.swift,
 				Views/SettingsView.swift,
@@ -37,6 +40,7 @@
 				Views/TransactionRecord/DetailedMapView.swift,
 				Views/TransactionRecord/ParkingSpotShowcaseView.swift,
 				Views/TransactionRecord/TransactionDetailView.swift,
+				Views/TransactionRecord/TransactionRow.swift,
 			);
 			target = D59C76A02DD0919E0067E656 /* money */;
 		};

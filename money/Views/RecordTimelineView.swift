@@ -5,6 +5,7 @@
 //  Created by Yoda on 2025/5/11.
 //
 
+import AudioToolbox
 import MapKit
 import SwiftData
 import SwiftUI
@@ -45,41 +46,51 @@ struct RecordTimelineView: View {
     return MRAtransactions
   }
 
+  @State private var selectedDate: Date = Date()
+  @State private var showCalendar: Bool = true
+
+  @State private var showDeleteAlert = false
+  @State private var transactionToDelete: TransactionRecord? = nil
+
   var body: some View {
     NavigationStack {
       ZStack(alignment: .bottomTrailing) {
-        VStack {
-          if filteredTransactions.isEmpty {
-            ContentUnavailableView {
-              Label(
-                searchText.isEmpty && selectedTransactionTypeFilter == nil ? "暂无交易记录" : "无匹配结果",
-                systemImage: "list.bullet.clipboard"
-              )
-              .font(.subheadline)
-            } description: {
-              Text(
-                searchText.isEmpty && selectedTransactionTypeFilter == nil
-                  ? "点击右下角的" + "按钮开始记账吧！" : "请尝试更改筛选条件或搜索关键词。")
-            }
-            .frame(maxHeight: .infinity)  // Ensure it takes up space if list is empty
-          } else {
-            List {
-              ForEach(
-                groupTransactionsByDate(filteredTransactions).sorted(by: { $0.key > $1.key }),
-                id: \.key
-              ) { date, dailyTransactions in
-                Section {
+
+        ScrollView {
+          VStack {
+            CustomWeekCalendar(selectedDate: $selectedDate)
+              .padding(.horizontal)
+
+            if filteredTransactions.isEmpty {
+              ContentUnavailableView {
+                Label(
+                  searchText.isEmpty && selectedTransactionTypeFilter == nil ? "暂无交易记录" : "无匹配结果",
+                  systemImage: "list.bullet.clipboard"
+                )
+                .font(.subheadline)
+              } description: {
+                Text(
+                  searchText.isEmpty && selectedTransactionTypeFilter == nil
+                    ? "点击右下角的" + "按钮开始记账吧！" : "请尝试更改筛选条件或搜索关键词。")
+              }
+              .frame(maxHeight: .infinity)
+            } else {
+              VStack(alignment: .leading) {
+                ForEach(
+                  groupTransactionsByDate(filteredTransactions).sorted(by: { $0.key > $1.key }),
+                  id: \.key
+                ) { date, dailyTransactions in
                   ForEach(dailyTransactions) { transaction in
                     NavigationLink(value: transaction) {
-                      TransactionRow(transaction: transaction)
-                        .contentShape(Rectangle())
-
+                      TransactionRow(transaction: transaction) {
+                        transactionToDelete = transaction
+                        showDeleteAlert = true
+                      }
                     }
                   }
-                } header: {
-                  DailySummaryHeader(date: date, transactions: dailyTransactions)
                 }
               }
+              .padding()
             }
           }
         }
@@ -92,19 +103,12 @@ struct RecordTimelineView: View {
         )
         .padding()
       }
-      .navigationTitle("账单")
+      .navigationTitle("今天")
       .toolbar {
         ToolbarItem(placement: .navigationBarLeading) {
           Button(action: {
 
           }) {
-            Label("场景", systemImage: "wand.and.stars")
-          }
-        }
-        ToolbarItem(placement: .navigationBarTrailing) {
-          Button {
-
-          } label: {
             Image(systemName: "magnifyingglass")
           }
         }
@@ -112,7 +116,14 @@ struct RecordTimelineView: View {
           Button {
 
           } label: {
-            Image(systemName: "line.3.horizontal.decrease.circle")
+            Image(systemName: "calendar")
+          }
+        }
+        ToolbarItem(placement: .navigationBarTrailing) {
+          Button {
+
+          } label: {
+            Image(systemName: "ellipsis.circle")
           }
         }
         //        ToolbarItem(placement: .navigationBarTrailing) {
@@ -135,7 +146,21 @@ struct RecordTimelineView: View {
       .sheet(isPresented: $showingAddTransactionSheet) {
         AddTransactionView()
       }
-
+      .alert("确定要删除这条记录吗？", isPresented: $showDeleteAlert, presenting: transactionToDelete) {
+        transaction in
+        Button("删除", role: .destructive) {
+          deleteTransaction(transaction)
+          // // 播放删除反馈
+          // let generator = UINotificationFeedbackGenerator()
+          // generator.notificationOccurred(.success)
+          // 播放删除声音
+          AudioServicesPlaySystemSound(4095)  // 系统删除音效
+        }
+        Button("取消", role: .cancel) {}
+      } message: { _ in
+        Text("删除后无法恢复。")
+      }
+      .background(.bar)
     }
   }
 
@@ -151,6 +176,7 @@ struct RecordTimelineView: View {
 
   // 删除交易并更新相关账户余额
   private func deleteTransaction(_ transaction: TransactionRecord) {
+
     // 在删除交易前，先反向更新相关账户的余额
     reverseAccountBalanceUpdates(for: transaction)
 
@@ -199,33 +225,6 @@ struct FloatingActionButton: View {
     .foregroundColor(.white)
     .clipShape(Circle())
     .shadow(radius: 5)
-  }
-}
-
-// Placeholder for TransactionRow - to be defined properly later
-struct TransactionRow: View {
-  let transaction: TransactionRecord
-  var body: some View {
-    HStack {
-      VStack(alignment: .leading) {
-        Text(
-          transaction.category?.name ?? (transaction.transactionType == .transfer ? "转账" : "未分类")
-        )
-        .font(.headline)
-        if let notes = transaction.notes {
-          Text(notes)
-            .font(.subheadline)
-            .foregroundStyle(.gray)
-        }
-
-      }
-      Spacer()
-      Text(transaction.amount, format: .currency(code: "CNY"))
-        .foregroundColor(
-          transaction.transactionType == .income
-            ? .green : (transaction.transactionType == .expense ? .red : .primary))
-    }
-    .frame(height: 56)
   }
 }
 
@@ -316,7 +315,33 @@ struct DailySummaryHeader: View {
 }
 
 #Preview {
-  RecordTimelineView()
-    .modelContainer(
-      for: [TransactionRecord.self, Account.self, TransactionCategory.self], inMemory: true)
+
+  let preview = Preview()
+  preview.addExamples(TransactionRecord.sampleItems)
+
+  return RecordTimelineView()
+    .modelContainer(preview.modelContainer)
+}
+
+struct Preview {
+
+  let modelContainer: ModelContainer
+  init() {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    do {
+      modelContainer = try ModelContainer(for: TransactionRecord.self, configurations: config)
+    } catch {
+      fatalError("Could not initialize ModelContainer")
+    }
+  }
+
+  func addExamples(_ examples: [TransactionRecord]) {
+
+    Task { @MainActor in
+      examples.forEach { example in
+        modelContainer.mainContext.insert(example)
+      }
+    }
+
+  }
 }
