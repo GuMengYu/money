@@ -26,24 +26,12 @@ struct RecordTimelineView: View {
 
   // Computed property for filtered and searched transactions
   private var filteredTransactions: [TransactionRecord] {
-    var MRAtransactions = allTransactions  // Make it mutable for easier filtering
-
-    // Apply type filter
-    if let typeFilter = selectedTransactionTypeFilter {
-      MRAtransactions = MRAtransactions.filter { $0.transactionType == typeFilter }
+    let calendar = Calendar.current
+    let startOfSelectedDay = calendar.startOfDay(for: selectedDate)
+    let endOfSelectedDay = calendar.date(byAdding: .day, value: 1, to: startOfSelectedDay)!
+    return allTransactions.filter { transaction in
+      transaction.date >= startOfSelectedDay && transaction.date < endOfSelectedDay
     }
-
-    // Apply search text filter (searches notes and category name)
-    if !searchText.isEmpty {
-      let lowercasedSearchText = searchText.lowercased()
-      MRAtransactions = MRAtransactions.filter {
-        ($0.notes?.lowercased().contains(lowercasedSearchText) ?? false)
-          || ($0.category?.name.lowercased().contains(lowercasedSearchText) ?? false)
-          || ($0.account?.name.lowercased().contains(lowercasedSearchText) ?? false)  // Search account name
-          || (String($0.amount).lowercased().contains(lowercasedSearchText))  // Search amount
-      }
-    }
-    return MRAtransactions
   }
 
   @State private var selectedDate: Date = Date()
@@ -59,9 +47,9 @@ struct RecordTimelineView: View {
         ScrollView {
           VStack {
             CustomWeekCalendar(selectedDate: $selectedDate)
-              .padding(.horizontal)
-
-            if filteredTransactions.isEmpty {
+            Divider()
+                  .padding(4)
+             if filteredTransactions.isEmpty {
               ContentUnavailableView {
                 Label(
                   searchText.isEmpty && selectedTransactionTypeFilter == nil ? "暂无交易记录" : "无匹配结果",
@@ -76,23 +64,19 @@ struct RecordTimelineView: View {
               .frame(maxHeight: .infinity)
             } else {
               VStack(alignment: .leading) {
-                ForEach(
-                  groupTransactionsByDate(filteredTransactions).sorted(by: { $0.key > $1.key }),
-                  id: \.key
-                ) { date, dailyTransactions in
-                  ForEach(dailyTransactions) { transaction in
-                    NavigationLink(value: transaction) {
-                      TransactionRow(transaction: transaction) {
-                        transactionToDelete = transaction
-                        showDeleteAlert = true
-                      }
+                ForEach(filteredTransactions) { transaction in
+                  NavigationLink(value: transaction) {
+                    TransactionRow(transaction: transaction) {
+                      transactionToDelete = transaction
+                      showDeleteAlert = true
                     }
                   }
                 }
               }
-              .padding()
+               
             }
           }
+          .padding(.horizontal)
         }
 
         FloatingActionButton(
@@ -160,7 +144,6 @@ struct RecordTimelineView: View {
       } message: { _ in
         Text("删除后无法恢复。")
       }
-      .background(.bar)
     }
   }
 
@@ -321,6 +304,7 @@ struct DailySummaryHeader: View {
 
   return RecordTimelineView()
     .modelContainer(preview.modelContainer)
+    .environmentObject(HapticManager())
 }
 
 struct Preview {

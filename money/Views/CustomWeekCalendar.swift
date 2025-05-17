@@ -15,7 +15,7 @@ struct CustomWeekCalendar: View {
               let days = weekGrid(for: weekStart)
               VStack {
                 LazyVGrid(
-                  columns: Array(repeating: GridItem(.flexible(), spacing: 5), count: 7), spacing: 2
+                  columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: 7), spacing: 2
                 ) {
                   ForEach(days, id: \.self) { date in
                     // 检查该日期是否为当前选中的日期
@@ -24,14 +24,15 @@ struct CustomWeekCalendar: View {
                     let isToday = calendar.isDateInToday(date)
                     // 获取星期缩写
                     let symbol = weekdaySymbol(for: date)
-                    VStack(spacing: 0) {
+                    VStack(spacing: 2) {
                       Text("\(calendar.component(.day, from: date))")
-                        .font(.system(size: 18).bold())
+                            .font(.subheadline)
                         .fontDesign(.rounded)
+                        .bold()
                         .frame(maxWidth: .infinity)
+                        
                       Text(symbol)
                         .font(.system(size: 8))
-
                         .frame(maxWidth: .infinity)
                     }
                     .padding(.vertical, 8)

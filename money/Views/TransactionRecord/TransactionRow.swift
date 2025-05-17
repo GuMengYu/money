@@ -33,26 +33,28 @@ struct TransactionRow: View {
           transaction.category?.name ?? (transaction.transactionType == .transfer ? "转账" : "未分类")
         )
         .font(.subheadline).fontWeight(.semibold)
-        .foregroundStyle(.primary)
+        .foregroundStyle(transaction.transactionType.color)
         .padding(.bottom, 1)
         if let notes = transaction.notes {
           Text(notes)
             .font(.caption)
-            .foregroundStyle(.secondary)
+            .tint(.primary)
 
         }
         Text(CoreFormatter.time(transaction.date))
           .font(.caption)
-          .foregroundStyle(.secondary)
+          .tint(.primary)
       }
       Spacer()
       VStack(alignment: .trailing) {
-        Text(transaction.amount, format: .currency(code: "CNY"))
-          .font(.headline)
-          .fontDesign(.rounded)
-          .fontWeight(.semibold)
-          .foregroundColor(
-            transaction.transactionType.color)
+        Text(
+          "\(transaction.transactionType == .income ? "+" : "-")\(transaction.amount, format: .currency(code: "CNY"))"
+        )
+        .font(.headline)
+        .fontDesign(.rounded)
+        .fontWeight(.semibold)
+        .foregroundColor(
+          transaction.transactionType.color)
 
         if let account = transaction.account {
           Text("#\(account.name)")
@@ -68,25 +70,41 @@ struct TransactionRow: View {
     info
       .padding(.horizontal, 12)
       .padding(.vertical, 14)
-      .background(.background)
-      .overlay(
-        RoundedRectangle(cornerRadius: 16)
-          .stroke(Color.gray.opacity(0.2), lineWidth: 1)
-      )
+      .background(.thickMaterial)
       .cornerRadius(16)
       #if os(iOS)
         .contextMenu {
           Button(action: {
 
           }) {
-            Label("复制内容", systemImage: "scissors")
+            Label("选择", systemImage: "checkmark.circle")
           }
 
-          Button(action: {
-            print("分享")
-          }) {
-            Label("本地保存", systemImage: "square.and.arrow.up")
+          Menu {
+            Button(action: {
+              print("编辑")
+            }) {
+              Label("增加标签", systemImage: "tag")
+            }
+
+            Button(action: {
+            }) {
+              Label("编辑交易", systemImage: "pencil")
+            }
+           
+          } label: {
+            Label("编辑", systemImage: "square.and.pencil")
           }
+            Button(action: {
+            }) {
+              Label("标记为待确认", systemImage: "checklist.unchecked")
+            }
+            Button(action: {
+            }) {
+              Label("标记为确认", systemImage: "checklist.checked")
+            }
+          Divider()
+
           Button(
             role: .destructive,
             action: {
@@ -107,10 +125,11 @@ struct TransactionRow: View {
                   latitude: transaction.latitude!, longitude: transaction.longitude!),
                 cameraDistance: 2000)
               ParkingSpotShowcaseView(spot: spot, topSafeAreaInset: 0, animated: false)
+              .frame(height: 200)
             }
           }
 
-          .frame(width: UIScreen.main.bounds.width, height: 300)
+          .frame(width: UIScreen.main.bounds.width)
 
         }
       #endif
