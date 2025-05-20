@@ -17,6 +17,7 @@ final class TransactionRecord {
   var account: Account?  // The account this transaction belongs to
   var toAccount: Account?  // For transfers, the destination account
   var category: TransactionCategory?  // The category of the transaction
+  var consumers: [Consumer] = []  // 支持多个消费对象
 
   init(
     amount: Double = 0.0,
@@ -27,7 +28,8 @@ final class TransactionRecord {
     longitude: Double? = nil,
     account: Account? = nil,
     toAccount: Account? = nil,  // for transfers
-    category: TransactionCategory? = nil
+    category: TransactionCategory? = nil,
+    consumers: [Consumer] = []  // 新增
   ) {
     self.amount = amount
     self.transactionType = transactionType
@@ -38,6 +40,7 @@ final class TransactionRecord {
     self.account = account
     self.toAccount = toAccount
     self.category = category
+    self.consumers = consumers  // 新增
   }
 
   // Computed property to get CLLocationCoordinate2D if lat/lon exist

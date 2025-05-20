@@ -41,7 +41,6 @@ static let rootCategoryPredicate: Predicate<TransactionCategory> = #Predicate { 
         }
       }
       .navigationTitle("交易分类")
-      .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .navigationBarTrailing) {
           Button {

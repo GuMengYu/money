@@ -50,7 +50,7 @@ struct DetailedMapView: ViewControllerRepresentable {
 
       let configuration = MKStandardMapConfiguration(
         elevationStyle: .realistic, emphasisStyle: .default)
-      configuration.pointOfInterestFilter = .excludingAll
+        configuration.pointOfInterestFilter = .includingAll
       configuration.showsTraffic = false
       mapView.preferredConfiguration = configuration
       mapView.isZoomEnabled = false

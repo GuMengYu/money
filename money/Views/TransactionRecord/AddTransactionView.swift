@@ -6,6 +6,7 @@ import SwiftUI
 struct AddTransactionView: View {
   @Environment(\.modelContext) private var modelContext
   @Environment(\.dismiss) var dismiss
+  var onComplete: (() -> Void)?
 
   // Location Manager
   @StateObject private var locationManager = LocationManager()
@@ -25,6 +26,8 @@ struct AddTransactionView: View {
   // Fetching data for pickers
   @Query(sort: \Account.name) private var accounts: [Account]
   @Query(sort: \TransactionCategory.name) private var allCategories: [TransactionCategory]
+  @Query(sort: \Consumer.name) private var consumers: [Consumer]
+  @State private var selectedConsumerIds: Set<PersistentIdentifier> = []
 
   // Filtered categories based on transaction type
   private var filteredCategories: [TransactionCategory] {
@@ -94,16 +97,43 @@ struct AddTransactionView: View {
               ForEach(filteredCategories) {
                 Text($0.name).tag($0.id as PersistentIdentifier?)
               }
-                
-                Button {
-                    
-                } label: {
+
+              Button {
+
+              } label: {
                 HStack {
                   Image(systemName: "plus.circle.fill")
                   Text("新增分类")
                 }
               }
-                .buttonStyle(.plain)
+              .buttonStyle(.plain)
+            }
+          }
+
+          Section("消费对象") {
+            ForEach(consumers) { consumer in
+              Button {
+                if selectedConsumerIds.contains(consumer.id) {
+                  selectedConsumerIds.remove(consumer.id)
+                } else {
+                  selectedConsumerIds.insert(consumer.id)
+                }
+              } label: {
+                HStack {
+                  consumer.avatarImage
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 24, height: 24)
+                    .clipShape(Circle())
+                  Text(consumer.name)
+                  Spacer()
+                  if selectedConsumerIds.contains(consumer.id) {
+                    Image(systemName: "checkmark.circle.fill")
+                      .foregroundColor(.blue)
+                  }
+                }
+              }
+              .buttonStyle(.plain)
             }
           }
         }
@@ -167,7 +197,7 @@ struct AddTransactionView: View {
       }
       .navigationTitle("添加交易")
       .navigationBarTitleDisplayMode(.inline)
-      
+
       .toolbar {
         ToolbarItem(placement: .navigationBarLeading) {
           Button("取消") { dismiss() }
@@ -176,9 +206,13 @@ struct AddTransactionView: View {
           Button("保存") {
             saveTransaction()
             dismiss()
+            onComplete?()
           }
           .disabled(!isFormValid)
         }
+      }
+      .onAppear {
+        selectedConsumerIds = Set(consumers.filter { $0.isDefault }.map { $0.id })
       }
     }
   }
@@ -209,6 +243,8 @@ struct AddTransactionView: View {
       categoryValue = fetchedCategory
     }
 
+    let selectedConsumers = consumers.filter { selectedConsumerIds.contains($0.id) }
+
     // 创建新交易记录
     let newTransaction = TransactionRecord(
       amount: amount,
@@ -219,7 +255,8 @@ struct AddTransactionView: View {
       longitude: includeLocation ? locationManager.locationCoordinate?.longitude : nil,
       account: fromAccount,
       toAccount: toAccountValue,
-      category: categoryValue
+      category: categoryValue,
+      consumers: selectedConsumers
     )
 
     // 更新账户余额

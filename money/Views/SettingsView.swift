@@ -1,50 +1,143 @@
 import SwiftUI
 
-struct SettingsView: View {
-  var body: some View {
+enum AppTheme: String, CaseIterable {
+  case system
+  case light
+  case dark
 
-    NavigationStack {  // Standard practice for root views in a tab or navigation hierarchy
+  var displayName: LocalizedStringKey {
+    switch self {
+    case .system: return "theme.system"
+    case .light: return "theme.light"
+    case .dark: return "theme.dark"
+    }
+  }
+}
+
+struct SettingsView: View {
+  @Environment(\.dismiss) private var dismiss
+  @State private var showingCloudKitSettings = false
+
+  @EnvironmentObject var themeManager: ThemeManager  // 从环境中获取 ThemeManager
+
+  var body: some View {
+    NavigationStack {
       List {
         Section {
-          NavigationLink {
-            CategoriesView()
+          Button {
+              if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url)
+              }
           } label: {
-            Label("分类", systemImage: "list.bullet.clipboard")
+              Label("settings.language", systemImage: "globe")
           }
             NavigationLink {
-                CategoriesView()
-             } label: {
-                        HStack {
-                          Image(systemName: "paintpalette")
-                          Text("外观")
-                        }
-                      }
-            Text("货币 (待实现)")
+              ThemeSettingsView()
+            } label: {
+                Label("settings.theme", systemImage: "paintpalette")
+            }
         } header: {
-          Text("通用设置")
-        }  // Using Form for a familiar settings layout
-       
+          Text("settings.general")
+        }
 
-        Section(header: Text("数据管理")) {
-          Text("导出数据 (待实现)")
-          Text("导入数据 (待实现)")
-          Button("清除所有数据 (待实现)", role: .destructive) {
-            // Action to clear data would go here
-            print("清除所有数据按钮被点击")
+       Section("settings.data") {
+              NavigationLink {
+                CategoriesView()
+              } label: {
+                Label("分类", systemImage: "list.dash.header.rectangle")
+              }
+              NavigationLink {
+                ConsumerView()
+              } label: {
+                Label("消费对象", systemImage: "person.2")
+              }
+          }
+
+        Section("settings.backup") {
+          Button(action: { showingCloudKitSettings = true }) {
+              
+              Label("settings.icloud", systemImage: "icloud")
           }
         }
 
-        Section(header: Text("关于")) {
-          LabeledContent("应用版本", value: "1.0.0 (Alpha)")
-          Text("隐私政策 (待实现)")
-          Text("服务条款 (待实现)")
+        Section("other") {
+          NavigationLink {
+            AboutView()
+          } label: {
+            Label("settings.about", systemImage: "info.circle")
+          }
         }
       }
-      .navigationTitle("设置")
+      .onAppear { print("Setting View appeared") }
+      .onDisappear { print("Setting View disappeared") }
+      .navigationTitle("settings.title")
+      .sheet(isPresented: $showingCloudKitSettings) {
+        CloudKitSettingsView()
+      }
+    }
+  }
+}
+
+
+struct ThemeSettingsView: View {
+  @EnvironmentObject var themeManager: ThemeManager
+  @AppStorage("colorScheme") private var colorScheme: String = "system"  // 保存主题偏好
+
+  var body: some View {
+    List {
+        Picker("settings.displayMode", selection: $colorScheme) {
+        ForEach(AppTheme.allCases, id: \.self) { _colorScheme in
+          Text(_colorScheme.displayName)
+            .tag(_colorScheme.rawValue)
+        }
+      }
+      Picker("settings.theme", selection: $themeManager.selectedTheme) {
+        ForEach(themeManager.availableThemes) { theme in
+          Text(theme.name).tag(theme)
+        }
+      }
+    }
+    .navigationTitle("settings.theme")
+  }
+}
+
+struct AboutView: View {
+  var body: some View {
+    List {
+      Section {
+        VStack(spacing: 12) {
+          Image(systemName: "dollarsign.circle.fill")
+            .font(.system(size: 60))
+            .foregroundStyle(.indigo)
+
+          Text("settings.appName")
+            .font(.title2)
+            .fontWeight(.bold)
+
+          Text("settings.version")
+            .font(.subheadline)
+            .foregroundColor(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical)
+      }
+
+      Section {
+        Link(destination: URL(string: "https://example.com/privacy")!) {
+          Label("settings.privacy", systemImage: "hand.raised")
+        }
+
+        Link(destination: URL(string: "https://example.com/terms")!) {
+          Label("settings.terms", systemImage: "doc.text")
+        }
+      }
     }
   }
 }
 
 #Preview {
-  SettingsView()
+  NavigationStack {
+    SettingsView()
+      .environmentObject(ThemeManager())
+  }
 }

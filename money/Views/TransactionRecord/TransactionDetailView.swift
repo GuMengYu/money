@@ -13,14 +13,14 @@ enum RecordStatus: String, Codable, CaseIterable {
       return .red
     }
   }
-    var icon: Image {
-        switch self {
-        case .completed:
-            return Image(systemName: "checkmark.circle.fill")
-        case .retired:
-            return Image(systemName: "arrowshape.turn.up.backward.circle.fill")
-        }
+  var icon: Image {
+    switch self {
+    case .completed:
+      return Image(systemName: "checkmark.circle.fill")
+    case .retired:
+      return Image(systemName: "arrowshape.turn.up.backward.circle.fill")
     }
+  }
 }
 struct TransactionDetailView: View {
   // Using @Bindable if we want to allow editing directly from the detail view in the future.
@@ -40,6 +40,7 @@ struct TransactionDetailView: View {
   @State private var status: RecordStatus = .completed
 
   var body: some View {
+
     ScrollView {
       VStack {  // Using Form for a grouped layout, similar to system detail views
 
@@ -47,7 +48,7 @@ struct TransactionDetailView: View {
           let spot = ParkingSpot(
             name: locationName,
             location: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude),
-            cameraDistance: 300
+            cameraDistance: 800
           )
 
           ZStack {
@@ -57,10 +58,10 @@ struct TransactionDetailView: View {
               .frame(maxWidth: .infinity)
           }
           .background(alignment: .bottom) {
-              ParkingSpotShowcaseView(spot: spot, topSafeAreaInset: 0)
-//            let title = spot.name
-//
-//            DetailedMapView(location: spot.location, topSafeAreaInset: 0, title: title)
+            ParkingSpotShowcaseView(spot: spot, topSafeAreaInset: 0)
+              //            let title = spot.name
+              //
+              //            DetailedMapView(location: spot.location, topSafeAreaInset: 0, title: title)
               #if os(iOS)
                 .mask {
                   LinearGradient(
@@ -89,7 +90,7 @@ struct TransactionDetailView: View {
           }
         }
         VStack(alignment: .leading, spacing: 8) {
-            Text(transaction.category?.name ?? "").font(.largeTitle)
+          Text(transaction.category?.name ?? "").font(.largeTitle)
             .fontWeight(.semibold)
           HStack {
             VStack(alignment: .leading) {
@@ -99,7 +100,7 @@ struct TransactionDetailView: View {
               }
               HStack {
                 Image(systemName: "calendar")
-                  Text(CoreFormatter.formattedDate(transaction.date))
+                Text(CoreFormatter.formattedDate(transaction.date))
               }
             }
             .font(.caption)
@@ -113,12 +114,12 @@ struct TransactionDetailView: View {
               }
             } label: {
               HStack(spacing: 4) {
-                  status.icon
+                status.icon
                   .resizable()
                   .scaledToFit()
                   .frame(width: 16)
                 Text(status.rawValue)
-                      .font(.subheadline)
+                  .font(.subheadline)
                   .fontWeight(.semibold)
               }
               .foregroundStyle(status.color)
@@ -131,92 +132,96 @@ struct TransactionDetailView: View {
 
           }
 
-          HStack {
-            Budge(
-              title: transaction.transactionType.rawValue,
-              icon: Image(systemName: "arrow.up.backward.circle.fill"), color: transaction.transactionType.color)
-            Budge(
-              title: transaction.account?.name ?? "", icon: Image(systemName: "creditcard.fill"),
-              color: .accentColor)
-            Budge(
-              title: transaction.date.formatted(date: .omitted, time: .shortened),
-              icon: Image(systemName: "clock.fill"), color: .teal)
-            Budge(
+          ScrollView(.horizontal) {
+            HStack {
+              Budge(
+                title: transaction.transactionType.rawValue,
+                icon: Image(systemName: "arrow.up.backward.circle.fill"),
+                color: transaction.transactionType.color)
+              Budge(
+                title: transaction.account?.name ?? "", icon: Image(systemName: "creditcard.fill"),
+                color: .accentColor)
+              Budge(
+                title: transaction.date.formatted(date: .omitted, time: .shortened),
+                icon: Image(systemName: "clock.fill"), color: .teal)
+              Budge(
                 title: "CNY",
                 icon: Image(systemName: "chineseyuanrenminbisign.circle.fill"), color: .red)
-          }
-          .padding(.vertical)
-            Divider()
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("金额")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    Text(transaction.amount, format: .currency(code: "CNY"))
-                        .font(.title)
-                        .fontDesign(.rounded)
-                                 .foregroundColor(
-                                   transaction.transactionType == .income
-                                     ? .green : (transaction.transactionType == .expense ? .red : .primary))
-                }
             }
-            
+            .padding(.vertical, 5)
+            .padding(.horizontal, 1)
+          }
+          .scrollIndicators(.hidden)
+          //            Divider()
+          HStack {
 
-//          LabeledContent("类型", value: transaction.transactionType.rawValue)
-//          LabeledContent("金额") {
-//            Text(transaction.amount, format: .currency(code: "CNY"))
-//              .foregroundColor(
-//                transaction.transactionType == .income
-//                  ? .green : (transaction.transactionType == .expense ? .red : .primary))
-//          }
-//          LabeledContent("账户", value: transaction.account?.name ?? "N/A")
-//
-//          if transaction.transactionType == .transfer {
-//            LabeledContent("转入账户", value: transaction.toAccount?.name ?? "N/A")
-//          }
-//
-//          if let categoryName = transaction.category?.name {
-//            LabeledContent("分类", value: categoryName)
-//          }
-//
-//          LabeledContent(
-//            "日期", value: transaction.date, format: .dateTime.year().month().day().hour().minute())
-//
-//          if let notes = transaction.notes, !notes.isEmpty {
-//            LabeledContent("备注") {
-//              Text(notes)
-//            }
-//          }
-
-          // 添加删除按钮
-            Spacer()
-            VStack {
-                Button(role: .destructive) {
-                  showingDeleteConfirmation = true
-                } label: {
-                  HStack {
-                    Spacer()
-                    Text("删除交易")
-                    Spacer()
+            Text(transaction.amount, format: .currency(code: "CNY"))
+              .font(.title)
+              .bold()
+              .fontDesign(.rounded)
+              .foregroundColor(transaction.transactionType.color)
+          }
+          Divider()
+          VStack(alignment: .leading, spacing: 4) {
+            Text("消费对象")
+              .font(.caption)
+              .foregroundStyle(.secondary)
+            if !transaction.consumers.isEmpty {
+              ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                  ForEach(transaction.consumers) { consumer in
+                    HStack(spacing: 4) {
+                      consumer.avatarImage
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 28, height: 28)
+                        .clipShape(Circle())
+                      Text(consumer.name)
+                        .font(.caption)
+                    }
+                    .padding(.trailing, 8)
                   }
                 }
+              }
+            } else {
+              Text("无")
+                .font(.caption)
+                .foregroundStyle(.tertiary)
             }
-            
+          }
+          VStack(alignment: .leading) {
+            HStack(alignment: .center) {
+              Text("评论&附件")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+              Spacer()
+              Button {
+
+              } label: {
+                Image(systemName: "plus.circle.fill")
+                  .resizable()
+                  .scaledToFit()
+                  .frame(width: 12)
+              }
+            }
+
+          }
+          .padding(.vertical)
         }.padding(.horizontal)
       }
-    }
 
-    .alert("确认删除", isPresented: $showingDeleteConfirmation) {
-      Button("取消", role: .cancel) {}
-      Button("删除", role: .destructive) {
-        deleteTransaction()
-        dismiss()  // 删除后返回列表
+      .alert("确认删除", isPresented: $showingDeleteConfirmation) {
+        Button("取消", role: .cancel) {}
+        Button("删除", role: .destructive) {
+          deleteTransaction()
+          dismiss()  // 删除后返回列表
+        }
+      } message: {
+        Text("确定要删除这笔交易记录吗？此操作无法撤销。")
       }
-    } message: {
-      Text("确定要删除这笔交易记录吗？此操作无法撤销。")
-    }
-    .onAppear {
-      performReverseGeocoding()
+      .onAppear {
+        performReverseGeocoding()
+      }
     }
   }
 
@@ -296,6 +301,7 @@ struct Budge: View {
   var title: String
   var icon: Image
   var color: Color
+
   var body: some View {
     HStack(spacing: 3) {
       icon
@@ -303,31 +309,38 @@ struct Budge: View {
         .scaledToFit()
         .frame(width: 12)
       Text(title)
-            .font(.caption)
+        .font(.caption)
         .fontWeight(.semibold)
     }
     .foregroundStyle(color)
     .padding(.vertical, 4)
     .padding(.horizontal, 6)
-    .background(color.opacity(0.2))
+    .background(color.opacity(0.1))
     .cornerRadius(6)
-    .overlay(RoundedRectangle(cornerRadius: 6).stroke(color, lineWidth: 1))
+    .overlay(RoundedRectangle(cornerRadius: 6).stroke(color.opacity(0.4), lineWidth: 0.5))
+  }
+}
+
+struct ConsumerItemView: View {
+  var body: some View {
+    VStack {
+      Image("memoji/angela_appy")
+        .resizable()
+        .scaledToFit()
+        .frame(width: 36)
+        .foregroundStyle(.primary)
+        .frame(width: 48, height: 48)
+        .background(.green.opacity(0.2))
+        .clipShape(Circle())
+      Text("爸比").font(.caption2).foregroundStyle(.secondary)
+    }
   }
 }
 
 #Preview {
   struct PreviewWrapper: View {
 
-    let sampleTransactionWithLocation = TransactionRecord(
-      amount: 125.50,
-      transactionType: .expense,
-      date: Date(),
-      notes: "午餐和咖啡",
-      latitude: 31.2304,  // Shanghai latitude
-      longitude: 121.4737,  // Shanghai longitude
-      account: Account(name: "储蓄卡", type: .savings, balance: 1000),
-      category: TransactionCategory(name: "餐饮", type: .expense)
-    )
+    let sampleTransactionWithLocation = TransactionRecord.sampleItems[0]
 
     var body: some View {
       NavigationView {

@@ -9,181 +9,223 @@ import AudioToolbox
 import MapKit
 import SwiftData
 import SwiftUI
+import FluidGradient
 
-struct RecordTimelineView: View {
-  @Environment(\.modelContext) private var modelContext
-  // Query for transactions, sorted by date, newest first.
-  // Grouping will be handled in the View logic.
-  @Query(sort: [SortDescriptor(\TransactionRecord.date, order: .reverse)])
-  private var allTransactions: [TransactionRecord]
+class RecordTimelineViewModel: ObservableObject {
+  @EnvironmentObject var themeManager: ThemeManager
 
-  @State private var showingAddTransactionSheet = false
-  @State private var selectedTransaction: TransactionRecord? = nil
+  @Published var transactions: [TransactionRecord] = []
+  @Published var isLoading: Bool = false
 
-  // Search and Filter State
-  @State private var searchText: String = ""
-  @State private var selectedTransactionTypeFilter: TransactionType? = nil  // nil for no filter
+  private var modelContext: ModelContext?
 
-  // Computed property for filtered and searched transactions
-  private var filteredTransactions: [TransactionRecord] {
-    let calendar = Calendar.current
-    let startOfSelectedDay = calendar.startOfDay(for: selectedDate)
-    let endOfSelectedDay = calendar.date(byAdding: .day, value: 1, to: startOfSelectedDay)!
-    return allTransactions.filter { transaction in
-      transaction.date >= startOfSelectedDay && transaction.date < endOfSelectedDay
+  func setContextIfNeeded(_ context: ModelContext) {
+    if modelContext == nil {
+      modelContext = context
     }
   }
 
+  func fetchTransactions(for date: Date) {
+    guard let modelContext else { return }
+    let calendar = Calendar.current
+    let startOfDay = calendar.startOfDay(for: date)
+    let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
+    let descriptor = FetchDescriptor<TransactionRecord>(
+      predicate: #Predicate { $0.date >= startOfDay && $0.date < endOfDay },
+      sortBy: [SortDescriptor(\TransactionRecord.date, order: .reverse)]
+    )
+    var loadingTask: Task<Void, Never>? = nil
+    Task {
+      // 500ms后才显示loading（只有未被取消时才设置）
+      loadingTask = Task { @MainActor in
+        try? await Task.sleep(nanoseconds: 500_000_000)
+        if !Task.isCancelled {
+          self.isLoading = true
+        }
+      }
+      let result = try? modelContext.fetch(descriptor)
+      loadingTask?.cancel()
+      await MainActor.run {
+        self.transactions = result ?? []
+        self.isLoading = false
+      }
+    }
+  }
+}
+
+struct RecordTimelineView: View {
+  @Environment(\.modelContext) private var modelContext
+  @Environment(\.colorScheme) private var colorScheme
+  @EnvironmentObject var themeManager: ThemeManager
+  @StateObject private var viewModel: RecordTimelineViewModel
+  @State private var showingAddTransactionSheet = false
+  @State private var selectedTransaction: TransactionRecord? = nil
+  @State private var searchText: String = ""
+  @State private var selectedTransactionTypeFilter: TransactionType? = nil
   @State private var selectedDate: Date = Date()
   @State private var showCalendar: Bool = true
-
   @State private var showDeleteAlert = false
   @State private var transactionToDelete: TransactionRecord? = nil
+  @State private var showCalendarSheet = false
+  @State private var tempSelectedDate: Date = Date()
+
+  init() {
+    _viewModel = StateObject(wrappedValue: RecordTimelineViewModel())
+  }
+    
+    var theme: Theme {
+        themeManager.selectedTheme
+    }
 
   var body: some View {
     NavigationStack {
-      ZStack(alignment: .bottomTrailing) {
-
-        ScrollView {
+      ZStack(alignment: .topLeading) {
+        // 渐变背景
+        LinearGradient(
+          gradient: Gradient(colors: [
+            themeManager.selectedTheme.primary.opacity(colorScheme == .dark ? 0.2 : 0.3),
+            themeManager.selectedTheme.primary.opacity(0.15),
+            themeManager.selectedTheme.primary.opacity(0.1),
+          ]),
+          startPoint: .topLeading,
+          endPoint: .bottomTrailing
+        )
+        .ignoresSafeArea()
+        // 主要内容
+        ZStack(alignment: .bottomTrailing) {
           VStack {
             CustomWeekCalendar(selectedDate: $selectedDate)
             Divider()
-                  .padding(4)
-             if filteredTransactions.isEmpty {
+              .padding(4)
+            if viewModel.isLoading {
+              ProgressView("加载中...")
+                .frame(maxWidth: .infinity, minHeight: 200)
+            } else if viewModel.transactions.isEmpty {
               ContentUnavailableView {
                 Label(
                   searchText.isEmpty && selectedTransactionTypeFilter == nil ? "暂无交易记录" : "无匹配结果",
                   systemImage: "list.bullet.clipboard"
                 )
                 .font(.subheadline)
-              } description: {
-                Text(
-                  searchText.isEmpty && selectedTransactionTypeFilter == nil
-                    ? "点击右下角的" + "按钮开始记账吧！" : "请尝试更改筛选条件或搜索关键词。")
               }
               .frame(maxHeight: .infinity)
             } else {
-              VStack(alignment: .leading) {
-                ForEach(filteredTransactions) { transaction in
-                  NavigationLink(value: transaction) {
-                    TransactionRow(transaction: transaction) {
-                      transactionToDelete = transaction
-                      showDeleteAlert = true
+              ScrollView {
+
+                VStack(alignment: .leading) {
+                  ForEach(viewModel.transactions) { transaction in
+                    NavigationLink(value: transaction) {
+                      TransactionRow(transaction: transaction) {
+                        transactionToDelete = transaction
+                        showDeleteAlert = true
+                      }
                     }
                   }
                 }
               }
-               
+              .scrollIndicators(.hidden)
             }
           }
           .padding(.horizontal)
-        }
 
-        FloatingActionButton(
-          action: {
-            showingAddTransactionSheet = true
-          },
-          icon: "plus"
-        )
-        .padding()
+          FloatingActionButton(
+            action: {
+              showingAddTransactionSheet = true
+            },
+            icon: "plus"
+          )
+          .padding()
+        }
       }
-      .navigationTitle("今天")
+      .navigationTitle(CoreFormatter.formattedDate(selectedDate, week: false))
       .toolbar {
         ToolbarItem(placement: .navigationBarLeading) {
           Button(action: {
-
           }) {
             Image(systemName: "magnifyingglass")
           }
         }
+        #if DEBUG
+          ToolbarItem(placement: .navigationBarTrailing) {
+            NavigationLink(value: "playground") {
+              Image(systemName: "apple.image.playground")
+            }
+          }
+        #endif
         ToolbarItem(placement: .navigationBarTrailing) {
           Button {
-
+            tempSelectedDate = selectedDate
+            showCalendarSheet = true
           } label: {
             Image(systemName: "calendar")
           }
         }
         ToolbarItem(placement: .navigationBarTrailing) {
           Button {
-
           } label: {
             Image(systemName: "ellipsis.circle")
           }
         }
-        //        ToolbarItem(placement: .navigationBarTrailing) {
-        //          Picker(
-        //            selection: $selectedTransactionTypeFilter,
-        //            label: {
-        //              Image(systemName: "line.3.horizontal.decrease.circle")
-        //            }
-        //          ) {
-        //            Text("全部").tag(nil as TransactionType?)
-        //            ForEach(TransactionType.allCases, id: \.self) {
-        //              Text($0.rawValue).tag($0 as TransactionType?)
-        //            }
-        //          }
-        //        }
       }
       .navigationDestination(for: TransactionRecord.self) { transaction in
         TransactionDetailView(transaction: transaction)
       }
+      .navigationDestination(for: String.self) { target in
+        if target == "playground" {
+          PlaygroundView()
+        }
+      }
       .sheet(isPresented: $showingAddTransactionSheet) {
-        AddTransactionView()
+        AddTransactionView(onComplete: {
+          viewModel.fetchTransactions(for: selectedDate)
+        })
+      }
+      .sheet(isPresented: $showCalendarSheet) {
+        CalendarDatePickerSheet(
+          selectedDate: $tempSelectedDate,
+          onCancel: { showCalendarSheet = false },
+          onDone: {
+            selectedDate = tempSelectedDate
+            showCalendarSheet = false
+          }
+        )
       }
       .alert("确定要删除这条记录吗？", isPresented: $showDeleteAlert, presenting: transactionToDelete) {
         transaction in
         Button("删除", role: .destructive) {
           deleteTransaction(transaction)
-          // // 播放删除反馈
-          // let generator = UINotificationFeedbackGenerator()
-          // generator.notificationOccurred(.success)
-          // 播放删除声音
-          AudioServicesPlaySystemSound(4095)  // 系统删除音效
+          AudioServicesPlaySystemSound(4095)
         }
         Button("取消", role: .cancel) {}
       } message: { _ in
         Text("删除后无法恢复。")
       }
     }
-  }
-
-  // Helper function to group transactions by date (ignoring time component for grouping by day)
-  private func groupTransactionsByDate(_ transactions: [TransactionRecord]) -> [Date:
-    [TransactionRecord]]
-  {
-    let calendar = Calendar.current
-    return Dictionary(grouping: transactions) { transaction in
-      calendar.startOfDay(for: transaction.date)
+    .onAppear {
+      viewModel.setContextIfNeeded(modelContext)
+      viewModel.fetchTransactions(for: selectedDate)
+    }
+    .onChange(of: selectedDate) { _, newDate in
+      viewModel.fetchTransactions(for: newDate)
     }
   }
 
-  // 删除交易并更新相关账户余额
   private func deleteTransaction(_ transaction: TransactionRecord) {
-
-    // 在删除交易前，先反向更新相关账户的余额
     reverseAccountBalanceUpdates(for: transaction)
-
-    // 删除交易
     withAnimation {
       modelContext.delete(transaction)
     }
+    viewModel.fetchTransactions(for: selectedDate)
   }
 
-  // 反向更新账户余额（删除交易时使用）
   private func reverseAccountBalanceUpdates(for transaction: TransactionRecord) {
     guard let account = transaction.account else { return }
-
     switch transaction.transactionType {
     case .income:
-      // 删除收入：减少账户余额
       account.balance -= transaction.amount
-
     case .expense:
-      // 删除支出：增加账户余额
       account.balance += transaction.amount
-
     case .transfer:
-      // 删除转账：增加源账户余额，减少目标账户余额
       guard let toAccount = transaction.toAccount else { return }
       account.balance += transaction.amount
       toAccount.balance -= transaction.amount
@@ -193,6 +235,8 @@ struct RecordTimelineView: View {
 
 // A simple Floating Action Button View
 struct FloatingActionButton: View {
+  @EnvironmentObject var themeManager: ThemeManager
+
   let action: () -> Void
   let icon: String
 
@@ -201,13 +245,14 @@ struct FloatingActionButton: View {
       Image(systemName: icon)
         .resizable()
         .scaledToFit()
-        .frame(width: 24, height: 24)
-        .padding()
+        .frame(width: 20, height: 20)
     }
-    .background(Color.blue)
-    .foregroundColor(.white)
-    .clipShape(Circle())
-    .shadow(radius: 5)
+    .padding()
+    .background(themeManager.selectedTheme.primaryContainer)
+    .foregroundColor(themeManager.selectedTheme.onPrimaryContainer)
+    .cornerRadius(16)
+    .shadow(color: themeManager.selectedTheme.primaryContainer, radius: 4)
+
   }
 }
 
@@ -299,15 +344,16 @@ struct DailySummaryHeader: View {
 
 #Preview {
 
-  let preview = Preview()
+  let preview = RecordTimelinePreview()
   preview.addExamples(TransactionRecord.sampleItems)
 
   return RecordTimelineView()
     .modelContainer(preview.modelContainer)
     .environmentObject(HapticManager())
+    .environmentObject(ThemeManager())
 }
 
-struct Preview {
+struct RecordTimelinePreview {
 
   let modelContainer: ModelContainer
   init() {

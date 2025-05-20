@@ -54,7 +54,7 @@ extension TransactionRecord {
         amount: 100.0,
         transactionType: .income,
         date: Date(),
-        notes: "出差交通补贴",
+        notes: "出差交通补贴, 长文本 长文本 长文本 长文本 长文本 长文本 长文本 长文本",
         latitude: 40.826344,
         longitude: 111.757935,  // for transfers
         category: TransactionCategory(

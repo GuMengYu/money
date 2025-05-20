@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum Tab: String, CaseIterable {
+enum Tab: String, CaseIterable, Hashable {
   case timeline = "calendar.day.timeline.left"
   case statistic = "chart.bar"
   case accounts = "chart.line.text.clipboard"
@@ -13,6 +13,11 @@ enum Tab: String, CaseIterable {
     case .settings: return "设置"
     }
   }
+    
+    // 为了 Picker 等需要 Hashable
+    func hash(into hasher: inout Hasher) {
+      hasher.combine(title)
+    }
 }
 
 struct AnimatedTab: Identifiable {
@@ -22,35 +27,59 @@ struct AnimatedTab: Identifiable {
 }
 
 struct MainTabView: View {
+    @EnvironmentObject var themeManager: ThemeManager
   @State private var activeTab: Tab = .timeline
   @State private var allTabs: [AnimatedTab] = Tab.allCases.compactMap { tab -> AnimatedTab in
     return .init(tab: tab)
   }
 
-  // 用于沉浸式状态栏的透明度
-  @State private var toolbarBackgroundVisibility: Visibility = .automatic
 
   var body: some View {
       VStack(spacing: 0) {
-        TabView(selection: $activeTab) {
-            RecordTimelineView()
-            .setupTab(.timeline)
-            .onAppear { toolbarBackgroundVisibility = .automatic }
+          TabView(selection: $activeTab) {
+              
+              RecordTimelineView()
+                  .tabItem {
+                      Label(Tab.timeline.title, systemImage: Tab.timeline.rawValue)
+                  }
+                  .tag(Tab.timeline)
+              StatisticView()
+                  .tabItem {
+                      Label(Tab.statistic.title, systemImage: Tab.statistic.rawValue)
+                  }
+                  .tag(Tab.statistic)
 
-          AccountsView()
-            .setupTab(.accounts)
-            .onAppear { toolbarBackgroundVisibility = .automatic }
+              
+              AccountsView()
+                  .tabItem {
+                      Label(Tab.accounts.title, systemImage: Tab.accounts.rawValue)
+                  }
+                  .tag(Tab.accounts)
 
-          StatisticView()
-            .setupTab(.statistic)
-            .onAppear { toolbarBackgroundVisibility = .hidden }
+              SettingsView()
+                  .tabItem {
+                      Label(Tab.settings.title, systemImage: Tab.settings.rawValue)
+                  }
+                  .tag(Tab.settings)
 
-          SettingsView()
-            .setupTab(.settings)
-            .onAppear { toolbarBackgroundVisibility = .automatic }
-        }
-        CustomTabBar()
+          }
+//
+//            RecordTimelineView()
+//            .setupTab(.timeline)
+//
+//
+//          AccountsView()
+//            .setupTab(.accounts)
+//
+//          StatisticView()
+//            .setupTab(.statistic)
+//
+//          SettingsView()
+//            .setupTab(.settings)
+//        }
+//        CustomTabBar()
       }
+      .accentColor(themeManager.selectedTheme.primary)
   }
 
   @ViewBuilder
@@ -78,13 +107,6 @@ struct MainTabView: View {
             {
               activeTab = tab
               animatedTab.isAnimating = true
-
-              // 切换到统计视图时使用沉浸式状态栏
-              if tab == .statistic {
-                toolbarBackgroundVisibility = .hidden
-              } else {
-                toolbarBackgroundVisibility = .automatic
-              }
             },
             completion: {
               var transaction = Transaction()
@@ -96,7 +118,7 @@ struct MainTabView: View {
         }
       }
     }
-    .background(.bar)
+    .background(.clear)
   }
 }
 
@@ -111,6 +133,8 @@ extension View {
 
 #Preview {
   MainTabView()
+        
     .modelContainer(
-      for: [Account.self, TransactionCategory.self, TransactionRecord.self], inMemory: true)  // Add necessary models for previews of contained views
+      for: [Account.self, TransactionCategory.self, TransactionRecord.self], inMemory: true)
+    .environmentObject(ThemeManager())
 }

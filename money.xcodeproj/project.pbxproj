@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D5A7F9AC2DD9D0080010E29D /* AnimateText in Frameworks */ = {isa = PBXBuildFile; productRef = D5A7F9AB2DD9D0080010E29D /* AnimateText */; };
+		D5A7F9DC2DDADA130010E29D /* FluidGradient in Frameworks */ = {isa = PBXBuildFile; productRef = D5A7F9DB2DDADA130010E29D /* FluidGradient */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		D59C76A12DD0919E0067E656 /* money.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = money.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -14,29 +19,51 @@
 		D5498F3D2DD43590009CC524 /* Exceptions for "money" folder in "money" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Assets.xcassets,
+				Components/AmountDisplay.swift,
+				Components/AppIcon.swift,
+				Components/AppIconView.swift,
+				Components/CollapsibleGroup.swift,
+				Components/CustomWeekCalendar.swift,
+				Components/ExpandedList.swift,
+				Components/IconInputView.swift,
+				Components/NumberInputView.swift,
+				Components/SafeImageView.swift,
+				Components/Sheet/AlertSheet.swift,
+				Components/Sheet/SheetManager.swift,
+				Components/TapAnimateTextView.swift,
 				General/Interpolation.swift,
 				General/TaskSeconds.swift,
 				Models/Account.swift,
+				Models/Consumer.swift,
 				Models/TransactionCategory.swift,
 				Models/TransactionRecord.swift,
 				moneyApp.swift,
+				"Preview Content/Preview Assets.xcassets",
 				"Preview Content/TransactionSamples.swift",
+				Resources/Localizable.xcstrings,
 				Utilities/Formatter.swift,
 				Utilities/HapticManager.swift,
+				Utilities/HeightReader.swift,
 				Utilities/LocationManager.swift,
-				Views/AccountDetailView.swift,
-				Views/AccountsView.swift,
-				Views/AddAccountView.swift,
+				Utilities/ThemeManager.swift,
+				Views/Account/AccountDetailView.swift,
+				Views/Account/AccountsView.swift,
+				Views/Account/AddAccountView.swift,
 				Views/AddEditCategoryView.swift,
-				Views/AddTransactionView.swift,
-				Views/CategoriesView.swift,
-				Views/CustomWeekCalendar.swift,
+				Views/CalendarDatePickerSheet.swift,
+				Views/Category/CategoriesView.swift,
+				Views/Category/SubcategoriesView.swift,
+				Views/ConsumerView.swift,
+				Views/ICloud/CloudKitManager.swift,
+				Views/ICloud/CloudKitSettingsView.swift,
 				Views/MainTabView.swift,
+				Views/Playground.swift,
 				Views/RecordTimelineView.swift,
 				Views/SettingsView.swift,
 				Views/StatisticView.swift,
-				Views/StickyMapHeaderView.swift,
-				Views/SubcategoriesView.swift,
+				Views/Theme/Theme.swift,
+				Views/TransactionRecord/AddTransactionView.swift,
 				Views/TransactionRecord/DetailedMapView.swift,
 				Views/TransactionRecord/ParkingSpotShowcaseView.swift,
 				Views/TransactionRecord/TransactionDetailView.swift,
@@ -62,6 +89,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5A7F9AC2DD9D0080010E29D /* AnimateText in Frameworks */,
+				D5A7F9DC2DDADA130010E29D /* FluidGradient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +130,8 @@
 			);
 			name = money;
 			packageProductDependencies = (
+				D5A7F9AB2DD9D0080010E29D /* AnimateText */,
+				D5A7F9DB2DDADA130010E29D /* FluidGradient */,
 			);
 			productName = money;
 			productReference = D59C76A12DD0919E0067E656 /* money.app */;
@@ -130,6 +161,10 @@
 			);
 			mainGroup = D59C76982DD0919E0067E656;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D5A7F9AA2DD9D0080010E29D /* XCRemoteSwiftPackageReference "AnimateText" */,
+				D5A7F9DA2DDADA130010E29D /* XCRemoteSwiftPackageReference "FluidGradient" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D59C76A22DD0919E0067E656 /* Products */;
 			projectDirPath = "";
@@ -364,6 +399,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D5A7F9AA2DD9D0080010E29D /* XCRemoteSwiftPackageReference "AnimateText" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jasudev/AnimateText.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.0;
+			};
+		};
+		D5A7F9DA2DDADA130010E29D /* XCRemoteSwiftPackageReference "FluidGradient" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Cindori/FluidGradient.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D5A7F9AB2DD9D0080010E29D /* AnimateText */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D5A7F9AA2DD9D0080010E29D /* XCRemoteSwiftPackageReference "AnimateText" */;
+			productName = AnimateText;
+		};
+		D5A7F9DB2DDADA130010E29D /* FluidGradient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D5A7F9DA2DDADA130010E29D /* XCRemoteSwiftPackageReference "FluidGradient" */;
+			productName = FluidGradient;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D59C76992DD0919E0067E656 /* Project object */;
 }

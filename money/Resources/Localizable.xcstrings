@@ -1,0 +1,1844 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "." : {
+
+    },
+    "#%@" : {
+
+    },
+    "%@" : {
+
+    },
+    "%@ - 子分类" : {
+
+    },
+    "%@%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@%2$@"
+          }
+        }
+      }
+    },
+    "%@分类" : {
+
+    },
+    "%lld" : {
+
+    },
+    "%lld 子分类" : {
+
+    },
+    "+%@" : {
+
+    },
+    "=" : {
+
+    },
+    "0.00" : {
+
+    },
+    "asset.type.alipay" : {
+      "comment" : "支付宝",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alipay"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "支付宝"
+          }
+        }
+      }
+    },
+    "asset.type.baitiao" : {
+      "comment" : "白条",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baitiao"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "白条"
+          }
+        }
+      }
+    },
+    "asset.type.bankFinancial" : {
+      "comment" : "银行理财",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bank Financial"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "银行理财"
+          }
+        }
+      }
+    },
+    "asset.type.car" : {
+      "comment" : "汽车",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Car"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "汽车"
+          }
+        }
+      }
+    },
+    "asset.type.carCredit" : {
+      "comment" : "车贷",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Car Loan"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "车贷"
+          }
+        }
+      }
+    },
+    "asset.type.cash" : {
+      "comment" : "现金类型",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cash"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "现金"
+          }
+        }
+      }
+    },
+    "asset.type.consumerCredit" : {
+      "comment" : "消费贷",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consumer Loan"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "消费贷"
+          }
+        }
+      }
+    },
+    "asset.type.credit" : {
+      "comment" : "信用贷款",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Credit Loan"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "信用贷款"
+          }
+        }
+      }
+    },
+    "asset.type.creditAssets" : {
+      "comment" : "信用资产",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Credit Assets"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "信用资产"
+          }
+        }
+      }
+    },
+    "asset.type.creditCard" : {
+      "comment" : "信用卡",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Credit Card"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "信用卡"
+          }
+        }
+      }
+    },
+    "asset.type.debitCard" : {
+      "comment" : "借记卡",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Debit Card"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "借记卡"
+          }
+        }
+      }
+    },
+    "asset.type.fund" : {
+      "comment" : "基金",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fund"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "基金"
+          }
+        }
+      }
+    },
+    "asset.type.houseCredit" : {
+      "comment" : "房贷",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mortgage"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "房贷"
+          }
+        }
+      }
+    },
+    "asset.type.huabie" : {
+      "comment" : "花呗",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huabei"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "花呗"
+          }
+        }
+      }
+    },
+    "asset.type.insurance" : {
+      "comment" : "保险",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insurance"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保险"
+          }
+        }
+      }
+    },
+    "asset.type.items" : {
+      "comment" : "物品",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Items"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "物品"
+          }
+        }
+      }
+    },
+    "asset.type.metal" : {
+      "comment" : "贵金属",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Precious Metal"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "贵金属"
+          }
+        }
+      }
+    },
+    "asset.type.netLiabilities" : {
+      "comment" : "网络信用账户",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Net Liabilities"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "网络信用账户"
+          }
+        }
+      }
+    },
+    "asset.type.netWallet" : {
+      "comment" : "网络钱包",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Net Wallet"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "网络钱包"
+          }
+        }
+      }
+    },
+    "asset.type.otherAssets" : {
+      "comment" : "其他资产",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other Assets"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他资产"
+          }
+        }
+      }
+    },
+    "asset.type.otherCredit" : {
+      "comment" : "其他贷款",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other Loan"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他贷款"
+          }
+        }
+      }
+    },
+    "asset.type.otherFixedAssets" : {
+      "comment" : "其他固定资产",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other Fixed Assets"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他固定资产"
+          }
+        }
+      }
+    },
+    "asset.type.otherInvestment" : {
+      "comment" : "其他投资",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other Investment"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他投资"
+          }
+        }
+      }
+    },
+    "asset.type.otherLiabilities" : {
+      "comment" : "其他负债",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other Liabilities"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他负债"
+          }
+        }
+      }
+    },
+    "asset.type.otherNetLiabilities" : {
+      "comment" : "其他网络负债",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other Net Liabilities"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他网络负债"
+          }
+        }
+      }
+    },
+    "asset.type.otherNetWallet" : {
+      "comment" : "其他网络钱包",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other Net Wallet"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他网络钱包"
+          }
+        }
+      }
+    },
+    "asset.type.otherWorkingCapital" : {
+      "comment" : "其他流动资金",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other Working Capital"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他流动资金"
+          }
+        }
+      }
+    },
+    "asset.type.payment" : {
+      "comment" : "应付账款",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Payables"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "应付账款"
+          }
+        }
+      }
+    },
+    "asset.type.paypal" : {
+      "comment" : "PayPal",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PayPal"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PayPal"
+          }
+        }
+      }
+    },
+    "asset.type.qq" : {
+      "comment" : "QQ钱包",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QQ Wallet"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QQ钱包"
+          }
+        }
+      }
+    },
+    "asset.type.realEstate" : {
+      "comment" : "房地产",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Real Estate"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "房地产"
+          }
+        }
+      }
+    },
+    "asset.type.receivables" : {
+      "comment" : "应收账款",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Receivables"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "应收账款"
+          }
+        }
+      }
+    },
+    "asset.type.stock" : {
+      "comment" : "股票",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stock"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "股票"
+          }
+        }
+      }
+    },
+    "asset.type.wechat" : {
+      "comment" : "微信支付",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WeChat Pay"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "微信支付"
+          }
+        }
+      }
+    },
+    "Beautiful Map Goes Here" : {
+
+    },
+    "cash" : {
+      "comment" : "现金",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cash"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "现金"
+          }
+        }
+      }
+    },
+    "Hello world" : {
+
+    },
+    "iCloud 同步" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud 同步"
+          }
+        }
+      }
+    },
+    "iCloud 状态" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud 状态"
+          }
+        }
+      }
+    },
+    "iCloud 设置" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ICloud"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ICloud 设置"
+          }
+        }
+      }
+    },
+    "icloud.sync.tip.confirm" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your asset data will be automatically synchronized to all devices that have logged in to iCloud. Click Synchronize Now to trigger the synchronization manually."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您的资产数据会自动同步到所有已登录 iCloud 的设备。点击立即同步可以手动触发同步。"
+          }
+        }
+      }
+    },
+    "icloud.sync.tip.disable" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud synchronization has been disabled, and your asset data will only be saved locally."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud 同步已禁用，您的资产数据将仅保存在本地。"
+          }
+        }
+      }
+    },
+    "MMM d" : {
+      "comment" : "月日",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MMM d"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "M月d日"
+          }
+        }
+      }
+    },
+    "other" : {
+
+    },
+    "Select..." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择"
+          }
+        }
+      }
+    },
+    "settings.about" : {
+      "comment" : "关于选项",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于"
+          }
+        }
+      }
+    },
+    "settings.appearance" : {
+      "comment" : "外观设置分组",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appearance"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "外观"
+          }
+        }
+      }
+    },
+    "settings.appName" : {
+      "comment" : "应用名称",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asset Manager"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "资产管家"
+          }
+        }
+      }
+    },
+    "settings.backup" : {
+      "comment" : "备份与同步分组",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Backup & Sync"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "备份与同步"
+          }
+        }
+      }
+    },
+    "settings.data" : {
+
+    },
+    "settings.displayMode" : {
+      "comment" : "显示模式选项",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Display Mode"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示模式"
+          }
+        }
+      }
+    },
+    "settings.general" : {
+      "comment" : "通用设置分组",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通用"
+          }
+        }
+      }
+    },
+    "settings.icloud" : {
+      "comment" : "iCloud 同步选项",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud Sync"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud 同步"
+          }
+        }
+      }
+    },
+    "settings.language" : {
+      "comment" : "语言设置选项",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "语言"
+          }
+        }
+      }
+    },
+    "settings.playground" : {
+      "comment" : "Playground 选项",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Playground"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Playground"
+          }
+        }
+      }
+    },
+    "settings.privacy" : {
+      "comment" : "隐私政策",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐私政策"
+          }
+        }
+      }
+    },
+    "settings.systemLanguage" : {
+      "comment" : "系统语言选项",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System Language"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统语言"
+          }
+        }
+      }
+    },
+    "settings.terms" : {
+      "comment" : "使用条款",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of Service"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用条款"
+          }
+        }
+      }
+    },
+    "settings.theme" : {
+      "comment" : "主题设置选项",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theme"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "主题"
+          }
+        }
+      }
+    },
+    "settings.title" : {
+      "comment" : "设置页面标题",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置"
+          }
+        }
+      }
+    },
+    "settings.version" : {
+      "comment" : "版本信息",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version 1.0.0"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "版本 1.0.0"
+          }
+        }
+      }
+    },
+    "Target Consumer" : {
+      "comment" : "消费对象",
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "消费对象"
+          }
+        }
+      }
+    },
+    "theme.dark" : {
+      "comment" : "深色主题",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "深色"
+          }
+        }
+      }
+    },
+    "theme.light" : {
+      "comment" : "浅色主题",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "浅色"
+          }
+        }
+      }
+    },
+    "theme.system" : {
+      "comment" : "跟随系统主题",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跟随系统"
+          }
+        }
+      }
+    },
+    "Today" : {
+      "comment" : "今天",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今天"
+          }
+        }
+      }
+    },
+    "Touch the screen." : {
+
+    },
+    "Yesterday" : {
+      "comment" : "昨天",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yesterday"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "昨天"
+          }
+        }
+      }
+    },
+    "yyyy MMM d" : {
+      "comment" : "年月日",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "yyyy MMM d"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "yyyy年M月d日"
+          }
+        }
+      }
+    },
+    "上次同步" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次同步"
+          }
+        }
+      }
+    },
+    "主要信息" : {
+
+    },
+    "交易分类" : {
+
+    },
+    "交易类型" : {
+
+    },
+    "交通" : {
+
+    },
+    "价格" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Value"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "价格"
+          }
+        }
+      }
+    },
+    "位置权限被拒绝。请在设置中开启。" : {
+
+    },
+    "余:" : {
+
+    },
+    "保存" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存"
+          }
+        }
+      }
+    },
+    "信用卡" : {
+
+    },
+    "最近交易 (待实现)" : {
+
+    },
+    "分类" : {
+
+    },
+    "分类信息" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Classification"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分类信息"
+          }
+        }
+      }
+    },
+    "分类占比" : {
+
+    },
+    "分类名称" : {
+
+    },
+    "分类图标" : {
+
+    },
+    "初始余额" : {
+
+    },
+    "删除" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除"
+          }
+        }
+      }
+    },
+    "删除后无法恢复。" : {
+
+    },
+    "删除记录" : {
+
+    },
+    "刷新资产" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刷新资产"
+          }
+        }
+      }
+    },
+    "加载中..." : {
+
+    },
+    "取消" : {
+
+    },
+    "可选信息" : {
+
+    },
+    "名称" : {
+
+    },
+    "场景" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scene"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "场景"
+          }
+        }
+      }
+    },
+    "基本信息" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Info"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "基本信息"
+          }
+        }
+      }
+    },
+    "增加标签" : {
+
+    },
+    "备注 (例如: 和朋友聚餐)" : {
+
+    },
+    "头像" : {
+
+    },
+    "完成" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完成"
+          }
+        }
+      }
+    },
+    "当前余额" : {
+
+    },
+    "当前时间范围内没有%@记录" : {
+
+    },
+    "总支出" : {
+
+    },
+    "总收入" : {
+
+    },
+    "总资产" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "总资产"
+          }
+        }
+      }
+    },
+    "我的物品" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我的物品"
+          }
+        }
+      }
+    },
+    "所有" : {
+
+    },
+    "按类型筛选" : {
+
+    },
+    "授权并获取位置" : {
+
+    },
+    "支:" : {
+
+    },
+    "收:" : {
+
+    },
+    "数量" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "数量"
+          }
+        }
+      }
+    },
+    "新增分类" : {
+
+    },
+    "无" : {
+
+    },
+    "无匹配结果" : {
+
+    },
+    "日期" : {
+
+    },
+    "时间范围" : {
+
+    },
+    "时间轴" : {
+
+    },
+    "暂无%@分类，请添加。" : {
+
+    },
+    "暂无交易记录" : {
+
+    },
+    "暂无子分类。点击\"+\"添加一个。" : {
+
+    },
+    "暂无数据" : {
+
+    },
+    "暂无账户" : {
+
+    },
+    "更新余额" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update Amount"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更新余额"
+          }
+        }
+      }
+    },
+    "标签" : {
+
+    },
+    "标记为待确认" : {
+
+    },
+    "标记为确认" : {
+
+    },
+    "核对资产" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check Asset"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "核对资产"
+          }
+        }
+      }
+    },
+    "正在获取位置..." : {
+
+    },
+    "此处将显示与此账户相关的交易列表。" : {
+
+    },
+    "消费对象" : {
+
+    },
+    "添加" : {
+
+    },
+    "添加交易" : {
+
+    },
+    "添加分类" : {
+
+    },
+    "添加子分类" : {
+
+    },
+    "添加新账户" : {
+
+    },
+    "添加消费对象" : {
+
+    },
+    "添加账户" : {
+
+    },
+    "添加资产" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "添加资产"
+          }
+        }
+      }
+    },
+    "点击开关以获取当前位置。" : {
+
+    },
+    "爸比" : {
+
+    },
+    "确定" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确定"
+          }
+        }
+      }
+    },
+    "确定要删除这条记录吗？" : {
+
+    },
+    "确定要删除这笔交易记录吗？此操作无法撤销。" : {
+
+    },
+    "确认删除" : {
+
+    },
+    "礼物" : {
+
+    },
+    "立即同步" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "立即同步"
+          }
+        }
+      }
+    },
+    "纬度: %.4f, 经度: %.4f" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "纬度: %1$.4f, 经度: %2$.4f"
+          }
+        }
+      }
+    },
+    "统计分析" : {
+
+    },
+    "编辑" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑"
+          }
+        }
+      }
+    },
+    "编辑交易" : {
+
+    },
+    "编辑消费对象" : {
+
+    },
+    "编辑资产" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Asset"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑资产"
+          }
+        }
+      }
+    },
+    "获取位置失败。请检查定位服务设置。" : {
+
+    },
+    "记录位置" : {
+
+    },
+    "设为默认" : {
+
+    },
+    "设置" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置"
+          }
+        }
+      }
+    },
+    "评论&附件" : {
+
+    },
+    "请输入名称" : {
+
+    },
+    "账户" : {
+
+    },
+    "账户信息" : {
+
+    },
+    "账户名称" : {
+
+    },
+    "账户名称 (例如: 招商银行储蓄卡)" : {
+
+    },
+    "账户类型" : {
+
+    },
+    "账户详情" : {
+
+    },
+    "货币" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Currency"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "货币"
+          }
+        }
+      }
+    },
+    "购物车" : {
+
+    },
+    "资产" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "资产"
+          }
+        }
+      }
+    },
+    "资产名称" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "资产名称"
+          }
+        }
+      }
+    },
+    "资产类型" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "资产类型"
+          }
+        }
+      }
+    },
+    "资产趋势" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "资产趋势"
+          }
+        }
+      }
+    },
+    "趋势" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "趋势"
+          }
+        }
+      }
+    },
+    "跳转到今天" : {
+
+    },
+    "转入账户" : {
+
+    },
+    "转账" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "转账"
+          }
+        }
+      }
+    },
+    "选择" : {
+
+    },
+    "选择分类" : {
+
+    },
+    "选择图标" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择图标"
+          }
+        }
+      }
+    },
+    "选择图标类型" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择图标类型"
+          }
+        }
+      }
+    },
+    "选择图片" : {
+
+    },
+    "选择日期" : {
+
+    },
+    "选择账户" : {
+
+    },
+    "选择资产类型" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择资产类型"
+          }
+        }
+      }
+    },
+    "选择转入账户" : {
+
+    },
+    "金额" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amount"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "金额"
+          }
+        }
+      }
+    },
+    "餐饮" : {
+
+    },
+    "默认" : {
+
+    }
+  },
+  "version" : "1.0"
+}

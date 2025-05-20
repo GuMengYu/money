@@ -6,17 +6,27 @@ enum TransactionType: String, Codable, CaseIterable {
   case income = "收入"
   case expense = "支出"
   case transfer = "转账"
-    
-    var color: Color {
-        switch self {
-        case .income:
-            return .green
-        case .expense:
-            return .red
-        case .transfer:
-            return .blue
-        }
+
+  var color: Color {
+    switch self {
+    case .income:
+      return .green
+    case .expense:
+      return .red
+    case .transfer:
+      return .blue
     }
+  }
+  func themeColor(_ themeManager: ThemeManager) -> Color {
+    switch self {
+    case .income:
+      return themeManager.selectedTheme.primary
+    case .expense:
+      return themeManager.selectedTheme.error
+    case .transfer:
+      return themeManager.selectedTheme.tertiary
+    }
+  }
 }
 
 @Model

@@ -9,6 +9,9 @@ import MapKit
 import SwiftUI
 
 struct TransactionRow: View {
+  @EnvironmentObject var themeManager: ThemeManager
+  @Environment(\.colorScheme) private var colorScheme
+
   let transaction: TransactionRecord
   // on delete
   let onDelete: () -> Void
@@ -38,12 +41,15 @@ struct TransactionRow: View {
         if let notes = transaction.notes {
           Text(notes)
             .font(.caption)
+            .lineLimit(1)
             .tint(.primary)
+            .opacity(0.8)
 
         }
         Text(CoreFormatter.time(transaction.date))
           .font(.caption)
           .tint(.primary)
+          .opacity(0.8)
       }
       Spacer()
       VStack(alignment: .trailing) {
@@ -59,7 +65,8 @@ struct TransactionRow: View {
         if let account = transaction.account {
           Text("#\(account.name)")
             .font(.caption)
-            .foregroundStyle(.secondary)
+            .tint(.primary)
+            .opacity(0.8)
           //            Budge(title: account.name, icon: Image(systemName: "creditcard"), color: transaction.transactionType.color)
 
         }
@@ -69,9 +76,13 @@ struct TransactionRow: View {
   var body: some View {
     info
       .padding(.horizontal, 12)
-      .padding(.vertical, 14)
-      .background(.thickMaterial)
+      .padding(.vertical, 10)
+      .background(.thinMaterial)
       .cornerRadius(16)
+//      .overlay {
+//        RoundedRectangle(cornerRadius: 16)
+//              .stroke(colorScheme == ColorScheme.dark ? Color.clear : themeManager.selectedTheme.outline.opacity(0.2), lineWidth: 1)
+//      }
       #if os(iOS)
         .contextMenu {
           Button(action: {
@@ -91,18 +102,18 @@ struct TransactionRow: View {
             }) {
               Label("编辑交易", systemImage: "pencil")
             }
-           
+
           } label: {
             Label("编辑", systemImage: "square.and.pencil")
           }
-            Button(action: {
-            }) {
-              Label("标记为待确认", systemImage: "checklist.unchecked")
-            }
-            Button(action: {
-            }) {
-              Label("标记为确认", systemImage: "checklist.checked")
-            }
+          Button(action: {
+          }) {
+            Label("标记为待确认", systemImage: "checklist.unchecked")
+          }
+          Button(action: {
+          }) {
+            Label("标记为确认", systemImage: "checklist.checked")
+          }
           Divider()
 
           Button(
@@ -116,7 +127,9 @@ struct TransactionRow: View {
         } preview: {
           VStack {
             info
-            .padding(12)
+
+            .padding(.horizontal, 14)
+            .padding(.vertical, 10)
 
             if transaction.latitude != nil && transaction.longitude != nil {
               let spot = ParkingSpot(
@@ -128,7 +141,6 @@ struct TransactionRow: View {
               .frame(height: 200)
             }
           }
-
           .frame(width: UIScreen.main.bounds.width)
 
         }
@@ -145,5 +157,6 @@ struct TransactionRow: View {
       )
     }
   }
+  .environmentObject(ThemeManager())
   .padding()
 }

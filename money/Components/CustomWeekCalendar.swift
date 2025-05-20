@@ -3,12 +3,14 @@ import SwiftUI
 struct CustomWeekCalendar: View {
   @State var displayedWeek: Date = Calendar.current.startOfWeek(for: Date())
   @EnvironmentObject var hapticManager: HapticManager
+  @EnvironmentObject var themeManager: ThemeManager
 
   let calendar = Calendar.current
   @Binding var selectedDate: Date
   var body: some View {
     VStack {
       ScrollViewReader { proxy in
+          let color = themeManager.selectedTheme.primary
         ScrollView(.horizontal) {
           HStack(spacing: 4) {
             ForEach(weeks, id: \.self) { weekStart in
@@ -24,7 +26,7 @@ struct CustomWeekCalendar: View {
                     let isToday = calendar.isDateInToday(date)
                     // 获取星期缩写
                     let symbol = weekdaySymbol(for: date)
-                    VStack(spacing: 2) {
+                    VStack(spacing: 4) {
                       Text("\(calendar.component(.day, from: date))")
                             .font(.subheadline)
                         .fontDesign(.rounded)
@@ -38,13 +40,12 @@ struct CustomWeekCalendar: View {
                     .padding(.vertical, 8)
                     .opacity(isSelected || isToday ? 1 : 1)
                     .background(
-                      isSelected ? .blue.opacity(0.2) : .gray.opacity(0.1),
+                      isSelected ? color.opacity(0.20) : color.opacity(0.08),
                       in: .rect(cornerRadius: 14)
                     )
                     .overlay(
-                      RoundedRectangle(cornerRadius: 14).stroke(lineWidth: 1.5)
-                        // 现在所有日期都有边框线，但我只想让当天有。只为当天加线，方便用户识别今天。
-                        .foregroundStyle(isToday ? Color.accentColor : .clear)
+                      RoundedRectangle(cornerRadius: 14).stroke(lineWidth: 2)
+                        .foregroundStyle(isToday ? color : .clear)
                         .padding(1)
                     )
                     .onTapGesture {
@@ -156,4 +157,7 @@ extension Calendar {
   @Previewable @State var selection: Date = Date()
 
   CustomWeekCalendar(selectedDate: $selection)
+        .padding()
+        .environmentObject(ThemeManager())
+        .environmentObject(HapticManager())
 }

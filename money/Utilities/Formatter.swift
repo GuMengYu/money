@@ -16,29 +16,44 @@ struct CoreFormatter {
   }
 
   // 格式化日期显示
-  static func formattedDate(_ date: Date) -> String {
+  static func formattedDate(_ date: Date, week: Bool = true) -> String {
     let formatter = DateFormatter()
-    formatter.locale = Locale(identifier: "zh_CN")
+    formatter.locale = Locale.current
 
     // 获取星期几
     let weekdayFormatter = DateFormatter()
-    weekdayFormatter.dateFormat = "EEEE"  // 使用完整格式，如"星期一"
-    weekdayFormatter.locale = Locale(identifier: "zh_CN")
+    weekdayFormatter.dateFormat = "EEEE"
+    weekdayFormatter.locale = Locale.current
     let weekday = weekdayFormatter.string(from: date)
+
+    // 检查是否是今天或昨天
+    let calendar = Calendar.current
+    if calendar.isDateInToday(date) {
+      return String(localized: "Today") + (week ? " " + weekday : "")
+    } else if calendar.isDateInYesterday(date) {
+      return String(localized: "Yesterday") + (week ? " " + weekday : "")
+    }
 
     if isCurrentYear(date) {
       // 当年只显示月日
-      formatter.dateFormat = "MM月dd日"
+      formatter.dateFormat = String(localized: "MMM d")
     } else {
       // 非当年显示年月日
-      formatter.dateFormat = "yyyy年MM月dd日"
+      formatter.dateFormat = String(localized: "yyyy MMM d")
     }
-    return formatter.string(from: date) + " " + weekday
+    return formatter.string(from: date) + (week ? " " + weekday : "")
   }
   static func time(_ date: Date) -> String {
     let formatter = DateFormatter()
     formatter.locale = Locale(identifier: "zh_CN")
     formatter.dateFormat = "HH:mm"
     return formatter.string(from: date)
+  }
+  static func formatNumber(_ value: Double) -> String {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    formatter.minimumFractionDigits = 2
+    formatter.maximumFractionDigits = 2
+    return formatter.string(from: NSNumber(value: value)) ?? "0.00"
   }
 }
